@@ -17,10 +17,10 @@ Welcome! This repository contains all the projects and tasks completed as part o
 
 ## 📂 Folder Structure
 
-├── task-1-basic-webpage/ # HTML, CSS & JS basics < br / >
-├── task-2-contact-layout-validation/ # Forms, Validation & Flex/Grid < br / >
-├── task-3-quiz-api-responsive/ # Quiz App + API + Media Queries < br / >
-├── task-4-portfolio-todo-products/ # Portfolio + To-Do App + Product Listing < br / >
+├── task-1-basic-webpage/ # HTML, CSS & JS basics  <br />
+├── task-2-contact-layout-validation/ # Forms, Validation & Flex/Grid  <br />
+├── task-3-quiz-api-responsive/ # Quiz App + API + Media Queries  <br />
+├── task-4-portfolio-todo-products/ # Portfolio + To-Do App + Product Listing <br /> 
 └── task-5-final-ecommerce-app/ # Full E-Commerce Web App + Optimization
 
 
