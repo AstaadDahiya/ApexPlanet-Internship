@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sole Search - Premium Sneakers</title>
+
+    <!-- Tailwind CSS for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom styles to complement Tailwind */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Tailwind gray-50 */
+        }
+
+        /* Performance: Optimize image rendering */
+        .product-image {
+            background-color: #e2e8f0; /* Tailwind gray-300 placeholder */
+            aspect-ratio: 1 / 1;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 1;
+        }
+
+        .product-image[data-src] {
+            opacity: 0; /* Hide until loaded */
+        }
+
+        /* Style for the cart modal */
+        #cart-modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- Header and Navigation -->
+<header class="bg-white shadow-md sticky top-0 z-40">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center">
+                <a href="#" class="text-2xl font-bold text-gray-800">Sole Search</a>
+            </div>
+            <div class="flex items-center">
+                <button id="cart-button" class="relative text-gray-600 hover:text-gray-800 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <span id="cart-count-badge" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Main Content: Product Grid -->
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Featured Products</h1>
+
+    <!--
+        Responsive Grid:
+        - 1 column on smallest screens
+        - 2 columns on small screens (sm)
+        - 3 columns on medium screens (md)
+        - 4 columns on large screens (lg)
+        This ensures optimal viewing on all devices.
+    -->
+    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Product cards will be dynamically inserted here by JavaScript -->
+    </div>
+</main>
+
+<!-- Shopping Cart Modal -->
+<div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center invisible opacity-0 z-50">
+    <div id="cart-modal-content" class="bg-white rounded-lg shadow-xl w-11/12 max-w-lg mx-auto transform transition-transform duration-300 scale-95">
+        <div class="p-6">
+            <div class="flex justify-between items-center border-b pb-4 mb-4">
+                <h2 class="text-2xl font-bold text-gray-800">Your Cart</h2>
+                <button id="close-cart-button" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <div id="cart-items" class="space-y-4 max-h-96 overflow-y-auto">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+            <div id="cart-footer" class="mt-6 border-t pt-4">
+                <div class="flex justify-between items-center font-bold text-lg">
+                    <span>Total</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+                <button class="w-full mt-4 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                    Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-white mt-16 border-t">
+    <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+        <p>&copy; 2025 Sole Search. All Rights Reserved.</p>
+        <p class="text-sm mt-2">Built for demonstration. Cross-browser tested on Chrome, Firefox, and Safari.</p>
+    </div>
+</footer>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- DATA ---
+        // In a real application, this data would come from an API.
+        // Replaced placeholder images with actual photos for a more realistic look.
+        const products = [
+            { id: 1, name: 'Urban Runner', price: 120, image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80' },
+            { id: 2, name: 'Trail Blazer', price: 150, image: 'https://images.unsplash.com/photo-1595950653106-6c99649d99b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80' },
+            { id: 3, name: 'Cloud Comfort', price: 135, image: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80' },
+            { id: 4, name: 'Classic Court', price: 95, image: 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80' },
+            { id: 5, name: 'Retro Sprint', price: 110, image: 'https://images.unsplash.com/photo-1528702748617-c67d89e610d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80' },
+            { id: 6, name: 'Aero Glide', price: 180, image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80' },
+            { id: 7, name: 'Metro Walker', price: 85, image: 'https://images.unsplash.com/photo-1514989940723-e8e51635b782?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80' },
+            { id: 8, name: 'Summit Peak', price: 210, image: 'https://images.unsplash.com/photo-1566958434440-27995b43a91c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80' }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const productGrid = document.getElementById('product-grid');
+        const cartButton = document.getElementById('cart-button');
+        const closeCartButton = document.getElementById('close-cart-button');
+        const cartModal = document.getElementById('cart-modal');
+        const cartModalContent = document.getElementById('cart-modal-content');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartCountBadge = document.getElementById('cart-count-badge');
+        const cartTotalEl = document.getElementById('cart-total');
+        const cartFooter = document.getElementById('cart-footer');
+
+        // --- STATE MANAGEMENT ---
+        // Use localStorage to persist cart data across sessions.
+        let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+        // --- RENDERING ---
+
+        /**
+         * Renders all products to the grid.
+         * PERFORMANCE: Cards are created as strings for efficient DOM insertion.
+         * Instead of creating and appending elements one by one, we build a single
+         * HTML string and set innerHTML once, which is faster.
+         */
+        function renderProducts() {
+            if (!productGrid) return;
+
+            const productHTML = products.map(product => `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden group">
+                    <div class="relative">
+                        <!--
+                            PERFORMANCE - LAZY LOADING:
+                            - The 'src' attribute is initially empty.
+                            - The real image URL is in 'data-src'.
+                            - The 'lazy' class marks it for the IntersectionObserver.
+                            - Added an onerror handler for robustness.
+                        -->
+                        <img class="w-full h-auto object-cover product-image lazy" alt="${product.name}" data-src="${product.image}" src="https://placehold.co/400x400/e2e8f0/ffffff?text=Loading..." onerror="this.onerror=null;this.src='https://placehold.co/400x400/e2e8f0/cccccc?text=Image+Not+Found';">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800">${product.name}</h3>
+                        <p class="text-gray-600 mt-1">$${product.price.toFixed(2)}</p>
+                        <button data-product-id="${product.id}" class="add-to-cart-btn w-full mt-4 bg-gray-800 text-white font-semibold py-2 rounded-lg hover:bg-gray-900 transition-colors">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            productGrid.innerHTML = productHTML;
+        }
+
+        // --- PERFORMANCE OPTIMIZATION: LAZY LOADING IMAGES ---
+
+        /**
+         * Uses the IntersectionObserver API to load images only when they are
+         * about to enter the viewport. This significantly improves initial page load time
+         * and reduces data usage, especially on pages with many images.
+         * * CROSS-BROWSER COMPATIBILITY: IntersectionObserver is supported by all modern
+         * browsers. For older browsers like IE11, a polyfill would be needed.
+         */
+        function initializeLazyLoading() {
+            const lazyImages = document.querySelectorAll('.lazy');
+
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                            img.onload = () => {
+                                img.style.opacity = '1';
+                            };
+                            img.classList.remove('lazy');
+                            observer.unobserve(img);
+                        }
+                    });
+                }, { rootMargin: "0px 0px 200px 0px" }); // Start loading when image is 200px from viewport
+
+                lazyImages.forEach(img => observer.observe(img));
+            } else {
+                // Fallback for older browsers without IntersectionObserver
+                lazyImages.forEach(img => {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    img.style.opacity = '1';
+                });
+            }
+        }
+
+        // --- CART LOGIC ---
+
+        /**
+         * Adds a product to the cart, updating quantity if it already exists.
+         */
+        function addToCart(productId) {
+            const productToAdd = products.find(p => p.id === productId);
+            if (!productToAdd) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...productToAdd, quantity: 1 });
+            }
+
+            saveCart();
+            updateCartUI();
+        }
+
+        /**
+         * Updates the cart item quantity.
+         */
+        function updateCartQuantity(productId, newQuantity) {
+            const itemInCart = cart.find(item => item.id === productId);
+            if (itemInCart) {
+                if (newQuantity > 0) {
+                    itemInCart.quantity = newQuantity;
+                } else {
+                    // Remove item if quantity is 0 or less
+                    cart = cart.filter(item => item.id !== productId);
+                }
+            }
+            saveCart();
+            updateCartUI();
+        }
+
+        /**
+         * Saves the current cart state to localStorage.
+         */
+        function saveCart() {
+            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        }
+
+        /**
+         * Updates all UI elements related to the cart.
+         */
+        function updateCartUI() {
+            renderCartItems();
+            updateCartBadge();
+            updateCartTotal();
+        }
+
+        /**
+         * Renders items currently in the cart to the modal.
+         */
+        function renderCartItems() {
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500">Your cart is empty.</p>';
+                cartFooter.style.display = 'none';
+                return;
+            }
+
+            cartFooter.style.display = 'block';
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="flex justify-between items-center" data-product-id="${item.id}">
+                    <div class="flex items-center gap-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded object-cover" onerror="this.onerror=null;this.src='https://placehold.co/100x100/e2e8f0/cccccc?text=Error';">
+                        <div>
+                            <p class="font-semibold">${item.name}</p>
+                            <p class="text-sm text-gray-600">$${item.price.toFixed(2)}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                         <input type="number" min="1" value="${item.quantity}" class="quantity-input w-16 text-center border rounded">
+                         <button class="remove-item-btn text-red-500 hover:text-red-700">&times;</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /**
+         * Updates the cart icon's badge with the total number of items.
+         */
+        function updateCartBadge() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountBadge.textContent = totalItems;
+        }
+
+        /**
+         * Calculates and displays the total price of all cart items.
+         */
+        function updateCartTotal() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalEl.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // --- MODAL CONTROLS ---
+
+        function openCartModal() {
+            updateCartUI();
+            cartModal.classList.remove('invisible', 'opacity-0');
+            cartModalContent.classList.remove('scale-95');
+        }
+
+        function closeCartModal() {
+            cartModal.classList.add('invisible', 'opacity-0');
+            cartModalContent.classList.add('scale-95');
+        }
+
+        // --- EVENT LISTENERS ---
+
+        // Listen for clicks on "Add to Cart" buttons
+        productGrid.addEventListener('click', (e) => {
+            if (e.target.classList.contains('add-to-cart-btn')) {
+                const productId = parseInt(e.target.dataset.productId, 10);
+                addToCart(productId);
+            }
+        });
+
+        // Listen for clicks inside the cart modal for quantity changes/removals
+        cartItemsContainer.addEventListener('click', (e) => {
+            const itemElement = e.target.closest('[data-product-id]');
+            if (!itemElement) return;
+
+            const productId = parseInt(itemElement.dataset.productId, 10);
+            if (e.target.classList.contains('remove-item-btn')) {
+                updateCartQuantity(productId, 0); // Set quantity to 0 to remove
+            }
+        });
+
+        cartItemsContainer.addEventListener('change', (e) => {
+            const itemElement = e.target.closest('[data-product-id]');
+            if (!itemElement) return;
+
+            if (e.target.classList.contains('quantity-input')) {
+                const productId = parseInt(itemElement.dataset.productId, 10);
+                const newQuantity = parseInt(e.target.value, 10);
+                updateCartQuantity(productId, newQuantity);
+            }
+        });
+
+        // Modal open/close listeners
+        cartButton.addEventListener('click', openCartModal);
+        closeCartButton.addEventListener('click', closeCartModal);
+        cartModal.addEventListener('click', (e) => {
+            // Close modal if backdrop is clicked
+            if (e.target === cartModal) {
+                closeCartModal();
+            }
+        });
+
+        // --- INITIALIZATION ---
+
+        function init() {
+            renderProducts();
+            initializeLazyLoading();
+            updateCartUI();
+        }
+
+        init();
+    });
+</script>
+</body>
+</html>
