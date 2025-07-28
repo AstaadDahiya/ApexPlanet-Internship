@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Portfolio & Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .active {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .todo-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<div class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-blue-600">DevPortfolio</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <button onclick="showTab('portfolio')" class="px-3 py-2 rounded-md text-sm font-medium text-blue-600 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200">Portfolio</button>
+                        <button onclick="showTab('todo')" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors duration-200">To-Do App</button>
+                        <button onclick="showTab('products')" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-800 transition-colors duration-200">Products</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Portfolio Tab -->
+        <div id="portfolio" class="tab-content active">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+                        <div class="text-center mb-6">
+                            <img src="https://placehold.co/150x150/3b82f6/ffffff?text=AS" alt="Profile" class="w-24 h-24 rounded-full mx-auto mb-4">
+                            <h1 class="text-2xl font-bold text-gray-800">Aryan Singh</h1>
+                            <p class="text-blue-600 font-medium">Full Stack Developer</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-2">About Me</h3>
+                                <p class="text-gray-600 text-sm">Passionate developer with 5+ years of experience creating web applications. Specialized in React, Node.js, and modern frontend technologies.</p>
+                            </div>
+
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-2">Skills</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">HTML/CSS</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">JavaScript</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">React</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Node.js</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Python</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-2">Contact</h3>
+                                <div class="space-y-2 text-sm text-gray-600">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-envelope mr-2 text-blue-600"></i>
+                                        <span>aryan.singh@email.com</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-phone mr-2 text-blue-600"></i>
+                                        <span>+1 (555) 123-4567</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+                                        <span>San Francisco, CA</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Projects Section -->
+                    <section class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-project-diagram mr-2 text-blue-600"></i>
+                            Projects
+                        </h2>
+
+                        <div class="grid gap-6">
+                            <div class="project-card bg-gray-50 rounded-lg p-6 transition-all duration-300">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3">
+                                    <h3 class="text-xl font-semibold text-gray-800">E-Commerce Platform</h3>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">React & Node.js</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">A full-featured e-commerce platform with user authentication, shopping cart, and payment processing integration.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">React</span>
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">Node.js</span>
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">MongoDB</span>
+                                </div>
+                                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    View Project <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+
+                            <div class="project-card bg-gray-50 rounded-lg p-6 transition-all duration-300">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3">
+                                    <h3 class="text-xl font-semibold text-gray-800">Task Management App</h3>
+                                    <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Vue.js & Firebase</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">Collaborative task management application with real-time updates, team assignments, and progress tracking.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">Vue.js</span>
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">Firebase</span>
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">Vuetify</span>
+                                </div>
+                                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    View Project <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+
+                            <div class="project-card bg-gray-50 rounded-lg p-6 transition-all duration-300">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3">
+                                    <h3 class="text-xl font-semibold text-gray-800">Weather Dashboard</h3>
+                                    <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">JavaScript & API</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">Interactive weather dashboard that displays current conditions, forecasts, and historical data with beautiful visualizations.</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">JavaScript</span>
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">Chart.js</span>
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">OpenWeather API</span>
+                                </div>
+                                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    View Project <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Contact Section -->
+                    <section class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-envelope mr-2 text-blue-600"></i>
+                            Contact Me
+                        </h2>
+
+                        <form id="contactForm" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                    <input type="text" id="name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                    <input type="email" id="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                <input type="text" id="subject" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea id="message" rows="4" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                            </div>
+
+                            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium">
+                                Send Message
+                            </button>
+                        </form>
+
+                        <div id="formSuccess" class="mt-4 p-3 bg-green-100 text-green-800 rounded-md hidden">
+                            <i class="fas fa-check mr-2"></i>
+                            Message sent successfully! I'll get back to you soon.
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- To-Do App Tab -->
+        <div id="todo" class="tab-content">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-tasks mr-2 text-blue-600"></i>
+                        To-Do List
+                    </h2>
+                    <div class="mt-4 sm:mt-0">
+                        <span class="text-sm text-gray-600">Tasks: </span>
+                        <span id="taskCount" class="font-semibold">0</span>
+                        <span class="text-sm text-gray-600"> | Completed: </span>
+                        <span id="completedCount" class="font-semibold">0</span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex">
+                        <input type="text" id="todoInput" placeholder="Add a new task..."
+                               class="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <button onclick="addTask()" class="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition-colors duration-200">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-2" id="todoList">
+                    <!-- Tasks will be added here -->
+                </div>
+
+                <div class="mt-6 text-center">
+                    <button onclick="clearCompleted()" class="text-red-600 hover:text-red-800 text-sm font-medium">
+                        Clear Completed Tasks
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div id="products" class="tab-content">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-store mr-2 text-blue-600"></i>
+                        Product Store
+                    </h2>
+
+                    <div class="flex flex-col sm:flex-row gap-4 mt-4 sm:mt-0">
+                        <div>
+                            <label for="categoryFilter" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                            <select id="categoryFilter" onchange="filterProducts()" class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="all">All Categories</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="books">Books</option>
+                                <option value="home">Home & Garden</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="sortFilter" class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+                            <select id="sortFilter" onchange="sortProducts()" class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="name">Name</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Rating</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="productGrid">
+                    <!-- Products will be added here -->
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Tab Navigation
+    function showTab(tabId) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Show selected tab
+        document.getElementById(tabId).classList.add('active');
+
+        // Update active button styles
+        document.querySelectorAll('nav button').forEach(btn => {
+            btn.classList.remove('text-blue-600');
+            btn.classList.add('text-gray-600');
+            if (btn.onclick.toString().includes(tabId)) {
+                btn.classList.add('text-blue-600');
+            } else {
+                btn.classList.remove('text-blue-600');
+            }
+        });
+    }
+
+    // To-Do List Functionality
+    let tasks = [];
+
+    // Try to load tasks from localStorage, but handle the security error
+    try {
+        const savedTasks = localStorage.getItem('tasks');
+        if (savedTasks) {
+            tasks = JSON.parse(savedTasks);
+        }
+    } catch (e) {
+        console.warn('Could not access localStorage:', e.message);
+        // Use empty array as fallback
+        tasks = [];
+    }
+
+    function saveTasks() {
+        try {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        } catch (e) {
+            console.warn('Could not save to localStorage:', e.message);
+        }
+        updateTaskCount();
+    }
+
+    function addTask() {
+        const input = document.getElementById('todoInput');
+        const text = input.value.trim();
+
+        if (text) {
+            const newTask = {
+                id: Date.now(),
+                text: text,
+                completed: false,
+                createdAt: new Date()
+            };
+
+            tasks.push(newTask);
+            input.value = '';
+            renderTasks();
+            saveTasks();
+        }
+    }
+
+    function toggleTask(id) {
+        tasks = tasks.map(task => {
+            if (task.id === id) {
+                return { ...task, completed: !task.completed };
+            }
+            return task;
+        });
+
+        renderTasks();
+        saveTasks();
+    }
+
+    function deleteTask(id) {
+        tasks = tasks.filter(task => task.id !== id);
+        renderTasks();
+        saveTasks();
+    }
+
+    function clearCompleted() {
+        tasks = tasks.filter(task => !task.completed);
+        renderTasks();
+        saveTasks();
+    }
+
+    function updateTaskCount() {
+        const taskCount = tasks.length;
+        const completedCount = tasks.filter(task => task.completed).length;
+        document.getElementById('taskCount').textContent = taskCount;
+        document.getElementById('completedCount').textContent = completedCount;
+    }
+
+    function renderTasks() {
+        const todoList = document.getElementById('todoList');
+        todoList.innerHTML = '';
+
+        if (tasks.length === 0) {
+            todoList.innerHTML = '<p class="text-gray-500 text-center py-4">No tasks yet. Add a task to get started!</p>';
+            return;
+        }
+
+        tasks.forEach(task => {
+            const taskElement = document.createElement('div');
+            taskElement.className = 'todo-item bg-gray-50 rounded-lg p-4 flex items-center justify-between transition-all duration-200';
+            taskElement.innerHTML = `
+                    <div class="flex items-center">
+                        <button onclick="toggleTask(${task.id})" class="w-5 h-5 rounded-full border-2 border-gray-400 flex items-center justify-center mr-3 ${task.completed ? 'bg-green-500 border-green-500' : ''}">
+                            ${task.completed ? '<i class="fas fa-check text-white text-xs"></i>' : ''}
+                        </button>
+                        <span class="${task.completed ? 'text-gray-500 line-through' : 'text-gray-800'}">${task.text}</span>
+                    </div>
+                    <button onclick="deleteTask(${task.id})" class="text-red-500 hover:text-red-700">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+            todoList.appendChild(taskElement);
+        });
+
+        updateTaskCount();
+    }
+
+    // Products Data and Functionality
+    const products = [
+        {
+            id: 1,
+            name: "Smartphone Pro",
+            price: 999,
+            category: "electronics",
+            rating: 4.8,
+            image: "https://placehold.co/300x200/3b82f6/ffffff?text=Smartphone",
+            description: "Latest smartphone with advanced camera and long battery life."
+        },
+        {
+            id: 2,
+            name: "Laptop Elite",
+            price: 1499,
+            category: "electronics",
+            rating: 4.6,
+            image: "https://placehold.co/300x200/10b981/ffffff?text=Laptop",
+            description: "Powerful laptop for professionals and creators."
+        },
+        {
+            id: 3,
+            name: "Cotton T-Shirt",
+            price: 29,
+            category: "clothing",
+            rating: 4.4,
+            image: "https://placehold.co/300x200/f59e0b/ffffff?text=T-Shirt",
+            description: "Comfortable cotton t-shirt in various colors."
+        },
+        {
+            id: 4,
+            name: "Winter Jacket",
+            price: 129,
+            category: "clothing",
+            rating: 4.7,
+            image: "https://placehold.co/300x200/ef4444/ffffff?text=Jacket",
+            description: "Warm and stylish winter jacket for cold weather."
+        },
+        {
+            id: 5,
+            name: "JavaScript Guide",
+            price: 39,
+            category: "books",
+            rating: 4.9,
+            image: "https://placehold.co/300x200/8b5cf6/ffffff?text=Book",
+            description: "Comprehensive guide to modern JavaScript development."
+        },
+        {
+            id: 6,
+            name: "Coffee Table",
+            price: 199,
+            category: "home",
+            rating: 4.3,
+            image: "https://placehold.co/300x200/06b6d4/ffffff?text=Table",
+            description: "Elegant coffee table for your living room."
+        },
+        {
+            id: 7,
+            name: "Wireless Earbuds",
+            price: 149,
+            category: "electronics",
+            rating: 4.5,
+            image: "https://placehold.co/300x200/84cc16/ffffff?text=Earbuds",
+            description: "High-quality wireless earbuds with noise cancellation."
+        },
+        {
+            id: 8,
+            name: "Garden Tools Set",
+            category: "home",
+            price: 79,
+            rating: 4.2,
+            image: "https://placehold.co/300x200/14b8a6/ffffff?text=Garden",
+            description: "Complete set of garden tools for outdoor maintenance."
+        }
+    ];
+
+    let filteredProducts = [...products];
+
+    function filterProducts() {
+        const category = document.getElementById('categoryFilter').value;
+
+        if (category === 'all') {
+            filteredProducts = [...products];
+        } else {
+            filteredProducts = products.filter(product => product.category === category);
+        }
+
+        sortProducts();
+    }
+
+    function sortProducts() {
+        const sortOption = document.getElementById('sortFilter').value;
+
+        filteredProducts.sort((a, b) => {
+            switch (sortOption) {
+                case 'name':
+                    return a.name.localeCompare(b.name);
+                case 'price-low':
+                    return a.price - b.price;
+                case 'price-high':
+                    return b.price - a.price;
+                case 'rating':
+                    return b.rating - a.rating;
+                default:
+                    return 0;
+            }
+        });
+
+        renderProducts();
+    }
+
+    function renderProducts() {
+        const productGrid = document.getElementById('productGrid');
+        productGrid.innerHTML = '';
+
+        if (filteredProducts.length === 0) {
+            productGrid.innerHTML = '<p class="col-span-full text-gray-500 text-center py-8">No products found matching your criteria.</p>';
+            return;
+        }
+
+        filteredProducts.forEach(product => {
+            const productElement = document.createElement('div');
+            productElement.className = 'product-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300';
+            productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-semibold text-gray-800">${product.name}</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">${product.category}</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3">${product.description}</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-lg font-bold text-gray-800">$${product.price}</span>
+                                <div class="flex items-center mt-1">
+                                    <div class="flex text-yellow-400">
+                                        ${[...Array(5)].map((_, i) =>
+                i < Math.floor(product.rating)
+                    ? '<i class="fas fa-star"></i>'
+                    : '<i class="far fa-star"></i>'
+            ).join('')}
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-1">${product.rating}</span>
+                                </div>
+                            </div>
+                            <button class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700 transition-colors duration-200">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+            productGrid.appendChild(productElement);
+        });
+    }
+
+    // Contact Form
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.getElementById('formSuccess').classList.remove('hidden');
+        this.reset();
+
+        setTimeout(() => {
+            document.getElementById('formSuccess').classList.add('hidden');
+        }, 3000);
+    });
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize To-Do List
+        renderTasks();
+
+        // Initialize Products
+        filterProducts();
+
+        // Set up Enter key for To-Do input
+        document.getElementById('todoInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+    });
+</script>
+</body>
+</html>
